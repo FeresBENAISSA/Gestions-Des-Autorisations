@@ -1,0 +1,45 @@
+ngb-modal-backdrop {
+    z-index: 1000 !important;
+  }
+// @import "~/angular-notifier/styles";
+.table-container {
+  height: auto;
+  overflow-x: auto;
+  width: auto;
+  border-left: 1px solid var(--border-basic-color-3) !important;
+  border-right: 1px solid var(--border-basic-color-3) !important;
+  border-bottom: 1px solid var(--border-basic-color-3) !important;
+  border-top: none !important;
+  .table {
+    margin-bottom: 0px;
+    th {
+      background: nb-theme(background-basic-color-1) !important;
+      border: 1px solid nb-theme(border-basic-color-3) !important;
+      position: sticky;
+      top: 0;
+    }
+    th:first-of-type,
+    td:first-of-type {
+      position: sticky;
+      left: 0;
+    }
+    th:first-of-type {
+      background: nb-theme(background-basic-color-1) !important;
+      border: 1px solid nb-theme(border-basic-color-3) !important;
+      border-left: none !important;
+      z-index: 2;
+    }
+    td:first-of-type {
+      background: nb-theme(background-basic-color-1) !important;
+      border: 1px solid nb-theme(border-basic-color-3) !important;
+      border-left: none !important;
+      z-index: 1;
+    }
+  }
+  ng2-smart-table-pager.ng-star-inserted {
+    position: sticky;
+    left: 0;
+    display: flex !important;
+    justify-content: center !important;
+  }
+}

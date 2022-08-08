@@ -1,0 +1,217 @@
+<div class="row ">
+  <div class="col-4 "[hidden]="rowData.roles"><button class="btn btn-info btn-icon btn-sm " rel="tooltip" type="button"   (click)="onOpen('View',view);"><i class="fa fa-user"></i></button></div>
+  <div class="col-4 "[hidden]="!rowData.roles"><button class="btn btn-info btn-icon btn-sm " rel="tooltip" type="button"   (click)="onOpen('ViewUser',viewUser);"><i class="fa fa-user"></i></button></div>
+  <div class="col-4 "[hidden]="rowData.roles || userExistEmp" ><button class="btn btn-success btn-icon btn-sm " rel="tooltip" type="button" (click)="onOpen('Edit',edit)" [disabled]="rowData.state == 'Approved' || rowData.state=='Refused'" ><i class="fa fa-edit"></i></button></div>
+  <div class="col-4 " [hidden]="rowData.roles"><button class="btn btn-light btn-icon btn-sm " rel="tooltip" type="button"  printSectionId="print-section" ngxPrint   styleSheetFile="../../../assets/css/pdf.css"><i class="fa fa-print "></i></button></div>
+  <!-- <div class="col  -4"><button class="btn btn-danger btn-icon btn-sm " rel="tooltip" type="button"  (click)="onOpen('Delete',delete)"><i class="fa fa-times"></i></button></div> -->
+</div>
+<div id="print-section" hidden *ngIf="!rowData.roles"> 
+  <div class="container" style="margin: 15px ;" >
+    <div class="row"  style="display:flex; justify-content: space-between; ">
+      <div class="img" style="margin-top: 30px ;"><img src="../../../assets/img/brand/logo-laratech-2022-3.png" alt=""></div>
+      <div class="info" style=" line-height: 0.5;">
+        <h2 style="color:#698c99;">LARATECH SARL</h2>
+        <h5 style="color:#355662;">2080,Ariana</h5>
+        <h5 style="color:#355662;">76 AV Habib Bourgiba A1-1</h5>
+        <h5 style="color:#355662;">Tunisie</h5>
+        <h5 style="color:#355662;" ><b>Tel :</b> +216 70 732 867 </h5>
+      </div>
+    </div>
+    <div><h1 style="text-align: center; color:#069ad5 ;">Autorisation de Sortie</h1></div>
+    <div style="margin-top: 50px ;">
+      <div><h2 style="color:#bae5eb;">Nom & prénom : <span style="color:black;">{{rowData.user.username}}</span> </h2></div>
+      <div><h2 style="color:#bae5eb;">Motif de l'autorisation : <span style="color:black;">{{rowData.description}}</span> </h2></div>
+      <div><h2 style="color:#bae5eb;">Date :<span style="color:black;">{{rowData.date}}</span> </h2></div>
+      <div><h2 style="color:#bae5eb;">Heure de Sortie : <span style="color:black;">{{rowData.exitTime}}</span>  </h2></div>
+      <div><h2 style="color:#bae5eb;">Heure de retour  : <span style="color:black;">{{rowData.returnTime}}</span> </h2></div>
+      <div><h2 style="color:#bae5eb;">Etat : <span style="color:black;">{{rowData.state}}</span> </h2></div>
+    </div>
+    <div style="float: right; width: 300px;  margin-top: 50px;">
+      <h2 style="text-align: center; color:#069ad5 ;">Signature </h2>
+      <div style=" border: 3px solid #069ad5; padding: 10px; height: 100px;" ></div>
+    </div>
+    <div class="footer" style=" position: fixed;left: 0;bottom: 0;width: 100%;text-align: center; line-height: 1.1; color:#355662; ">
+    Société LARATECH SARL M.F 1361545VAM000 -RC: B033155202014 <br>
+    76 Av Habib Bourguiba, A1-1. Ariana 2080 Tél: +216 70 737 867 <br>
+    www.laratech.io - contact@laratech.io
+    </div>
+  </div>
+    
+</div>
+
+<ng-template #view let-modal>
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-basic-title">View authorization</h2>
+      <button type="button" class="btn-sm btn-outline-danger " aria-label="Close" (click)="modal.dismiss('Cross click')"><i class="fa fa-times "></i> </button>
+    </div>
+    <div class="modal-body">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h2 class="h2"> Id Authorization : </h2>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <h2> {{rowData.idAuto}}</h2> 
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 col-xs-12">
+              <h2>   Username : </h2>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+              <h2>  {{rowData.user.username}}</h2>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-sm-6 col-xs-12">
+              <h2>   Full Name : </h2>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+              <h2>  {{rowData.user.name}}</h2>
+              </div>
+          </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                   <h2>Date:</h2> 
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <h2>{{rowData.date}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h2>  Exit Time:</h2>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <h2>{{rowData.exitTime}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                <h2>   Return Time:</h2>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                  <h2>  {{rowData.returnTime}}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                  <h2>   State  :</h2>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                  <h2>  {{rowData.state}}</h2>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('close')">Close</button>
+    </div>
+  </ng-template>
+
+
+
+<ng-template #viewUser let-modal>
+    <div class="modal-header">
+      <h2 class="modal-title" id="modal-basic-title">View User</h2>
+      <button type="button" class="btn-sm btn-outline-danger " aria-label="Close" (click)="modal.dismiss('Cross click')"><i class="fa fa-times "></i> </button>
+    </div>
+    <div class="modal-body">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4 col-xs-12">
+                    <h2 class="h2"> Id User :  </h2>
+                </div>
+                <div class="col-sm-8 col-xs-12">
+                    <h2> {{rowData.id}}</h2> 
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 col-xs-12">
+                  <h2 class="h2"> Username: </h2>
+              </div>
+              <div class="col-sm-8 col-xs-12">
+                  <h2> {{rowData.username}}</h2> 
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-sm-4 col-xs-12">
+                    <h2 class="h2"> Full Name: </h2>
+                </div>
+                <div class="col-sm-8 col-xs-12">
+                    <h2> {{rowData.name}}</h2> 
+                </div>
+            </div>
+          <div class="row">
+              <div class="col-sm-4 col-xs-12">
+                  <h2 class="h2"> Email : </h2>
+              </div>
+              <div class="col-sm-8 col-xs-12">
+                  <h2> {{rowData.email}}</h2> 
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4 col-xs-12">
+                <h2 class="h2"> Role: </h2>
+            </div>
+            <div class="col-sm-8 col-xs-12">
+                <h2> {{rowData.roles[0].name}}</h2> 
+            </div>
+        </div>
+      
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('close')">Close</button>
+    </div>
+  </ng-template>
+
+
+
+
+  <ng-template #edit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Update State</h4>
+      <button type="button" class="btn-sm btn-outline-danger " aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+    </div>
+    <div class="modal-body">
+        <div class="card-body">
+          <form  >
+            <div class="form-group bmd-form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control"  disabled placeholder="{{rowData.user.name}}" disabled>
+                </div>
+            </div>
+    
+            <div class="form-group bmd-form-group">
+                <div class="input-group">
+                  <input type="date" class="form-control"   value="{{rowData.date|date:'yyyy-MM-dd'}}" ngModel name="date" required disabled>
+                </div>
+            </div>
+    
+            <div class="form-group bmd-form-group">
+                    <div class="input-group">
+                      <input type="time" placeholder="startTime" class="form-control" value="{{rowData.exitTime}}"ngModel name="startTime" required disabled>
+                  </div>
+            </div>
+            <div class="form-group bmd-form-group">
+                    <div class="input-group">
+                      <input type="time" placeholder="endTime" class="form-control" value="{{rowData.returnTime}}" ngModel name="endTime" required disabled>
+                  </div>
+            </div>
+            <div class="form-group bmd-form-group">
+                    <div class="input-group">
+                      <input type="text" placeholder="Description" class="form-control" value="{{rowData.description}}" ngModel name="Description" required disabled>
+                  </div>
+            </div> 
+        </form>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="submit"  class="btn btn-outline-danger" (click)="Refused()">Refused </button>
+          <button type="submit" class="btn btn-success" (click)="Approved()">Approved</button>
+        </div>
+    </div>
+  </ng-template>
+  

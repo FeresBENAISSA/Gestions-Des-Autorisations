@@ -1,0 +1,199 @@
+<div class="header bg-gradient-info pb-8 pt-5 pt-md-8">
+  <div class="container-fluid"></div>
+</div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <div class="row">
+            <div class="col"><h3 class="mb-0">Users Table</h3></div>
+            <div class="col">
+              <button
+                class="btn btn-lg btn-success float-right"
+                (click)="open(content)"
+              >
+              <i class="fa-solid fa-plus"></i> Add User
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="table-container col">
+            <ng2-smart-table
+            [settings]="settings"
+            [source]="users"
+          ></ng2-smart-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">New User</h4>
+    <button
+      type="button"
+      class="btn-sm btn-outline-danger"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+    <i class="fa-solid fa-xmark"></i>
+        </button>
+  </div>
+  <div class="modal-body">
+    <div class="card-body">
+      <form #add="ngForm" (ngSubmit)="addUser(add)">
+        <div class="form-group bmd-form-group">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Username..."
+              ngModel
+              name="username"
+              required
+              minlength="4"
+              #username="ngModel"
+            />
+          </div>
+          <div
+            *ngIf="username.touched && username.invalid"
+            class="alert alert-danger mt-2 pb-2 pt-2 mb-1"
+            role="alert"
+          >
+            <p *ngIf="username.errors.required" class="mb-0">
+              Required username
+            </p>
+            <p *ngIf="username.errors.minlength" class="mb-0">
+              username too short
+            </p>
+          </div>
+          <div
+            *ngIf="usernameExist"
+            class="alert alert-danger mt-2"
+            role="alert"
+          >
+            Username already exit
+          </div>
+        </div>
+        <div class="form-group bmd-form-group">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Full Name..."
+              name="name"
+              ngModel
+              #name="ngModel"
+              required
+              minlength="4"
+            />
+          </div>
+          <div
+            *ngIf="name.touched && name.invalid"
+            class="alert alert-danger mt-2 pb-2 pt-2 mb-1"
+            role="alert"
+          >
+            <p *ngIf="name.errors.required" class="mb-0">Required name</p>
+            <p *ngIf="name.errors.minlength" class="mb-0">name too short</p>
+          </div>
+        </div>
+
+        <div class="form-group bmd-form-group">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Email..."
+              name="email"
+              ngModel
+              required
+              #email="ngModel"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+            />
+          </div>
+          <div *ngIf="email.touched && email.invalid" class="alert alert-danger mt-2 pb-2 pt-2 mb-1" role="alert">
+            <p *ngIf="email.errors?.required" class="mb-0"> Required email </p>
+            <p *ngIf="email.errors?.pattern" class="mb-0"> Please provide a valid email address </p>
+          </div>
+          <div
+            *ngIf="emailExist"
+            class="alert alert-danger mt-2"
+            role="alert"
+          >
+            Email already exit
+          </div>
+        </div>
+
+        <div class="form-group bmd-form-group ">
+          <div class="row " >
+            <div class="col-12">
+              <div class="input-group">
+                <input
+                  type="password"
+                  placeholder="Password..."
+                  class="form-control"
+                  [type]="show ? 'text' : 'password'"
+                  ngModel
+                  [ngModel]="password"
+                  [value]="password"
+                  name="password"
+                  minlength="4"
+                  required
+                  #passwordd="ngModel"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-default" type="button" id="viewpassword"
+                  (click)="viewPassword()"
+                >
+                  <i class="fa fa-eye"></i></button>
+                </div>
+              </div>
+              
+              <div *ngIf="passwordd.touched && passwordd.invalid" class="alert alert-danger mt-2 pb-2 pt-2 mb-1" role="alert">
+                <p *ngIf="passwordd.errors.required" class="mb-0"> Required password</p>
+                <p *ngIf="passwordd.errors.minlength" class="mb-0"> password too short</p>
+              </div>
+            </div>
+            
+            <div class="col-12 mt-3 ">
+              <div class="input-group d-flex justify-content-center ">
+                <button
+                  type="button"
+                  class="btn btn-outline-success w-100 "
+                  (click)="generateRandomPassword()"
+                >
+                  Generate Random password
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+
+
+
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            (click)="modal.close('Save click')"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="add.invalid"
+          >
+            Save New User
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>

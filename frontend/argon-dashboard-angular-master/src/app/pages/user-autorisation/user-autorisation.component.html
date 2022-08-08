@@ -1,0 +1,114 @@
+<div class="header bg-gradient-info pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+      
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+<div class="row">
+  <div class="col">
+    <div class="card shadow">
+      <div class="card-header border-0">
+        <div class="row">
+        <div class="col"><h3 class="mb-0">Authorizations Table</h3></div>
+        <div class="col "><button class="btn btn-lg btn-success float-right" (click)="open(content)"><i class="fa-solid fa-plus"></i> Add Authorization</button>
+        </div>
+      </div>
+      <!-- <div class="row mt-2">
+        <div class="col">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input class="form-control" placeholder="Search" type="text" >
+          </div>
+        </div>
+      </div> -->
+      </div>
+      <div class="row">
+        <div class="table-container col">
+
+          <ng2-smart-table [settings]="settings" [source]="autorisation"></ng2-smart-table>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<ng-template #content let-modal>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">New Authorization</h4>
+  <button type="button" class="btn-sm btn-outline-danger " aria-label="Close" (click)="modal.dismiss('Cross click')"><i class="fa-solid fa-xmark"></i></button>
+</div>
+<div class="modal-body">
+    <div class="card-body">
+      <form #form="ngForm" (ngSubmit)="addAutorisation(form)">
+        <div class="form-group bmd-form-group">
+            <div class="form-group">
+                  <label for="username">Username </label>
+                <input type="text"id="username"class="form-control"  disabled placeholder="{{username}}" value="{{username}}" ngModel>
+            </div>
+        </div>
+
+        <div class="form-group bmd-form-group">
+            <div class="form-group">
+                <label for="date">Date </label>
+                <input type="date" id="date"class="form-control" placeholder="Date" ngModel #date="ngModel" min="{{currentDate | date:'yyyy-MM-dd'}}"name="date" required>
+            </div>
+            <div *ngIf="date.touched && date.invalid" class="alert alert-danger mt-2 pb-2 pt-2 mb-1" role="alert">
+              <p *ngIf="date.errors.required" class="mb-0"> date requiered </p>
+            </div>
+        </div>
+
+        <div class="form-group bmd-form-group">
+                <div class="form-group">
+                  <label for="exitTime">Exit Time </label>
+                  <input type="time" id="exitTime"placeholder="exitTime" class="form-control" #exitTime="ngModel"  minValue="08:00"  max="18:00" ngModel name="exitTime" required>
+              </div>
+              <div *ngIf="exitTime.touched && exitTime.invalid" class="alert alert-danger mt-2 pb-2 pt-2 mb-1" role="alert">
+                <p *ngIf="exitTime.errors.required" class="mb-0"> date requiered </p>
+                <p *ngIf="exitTime.errors.min" class="mb-0"> Time should be between 8:00 to 18:00 </p>
+                <p *ngIf="exitTime.errors.max" class="mb-0"> Time should be between 8:00 to 18:00 </p>
+              </div>
+        </div>
+        <div class="form-group bmd-form-group">
+                <div class="form-group">
+                  <label for="returnTime">Return Time </label>
+                  <input type="time" placeholder="returnTime" class="form-control" min="08:00" max="18:00" #returnTime="ngModel" ngModel name="returnTime" required>
+              </div>
+              <div *ngIf="returnTime.touched && returnTime.invalid" class="alert alert-danger mt-2 pb-2 pt-2 mb-1" role="alert">
+                <p *ngIf="returnTime.errors.required" class="mb-0"> returnTime requiered </p>
+                <p *ngIf="returnTime.errors.min" class="mb-0"> Time should be between 8:00 to 18:00 </p>
+                <p *ngIf="returnTime.errors.max" class="mb-0"> Time should be between 8:00 to 18:00 </p>
+
+              </div>
+        </div>
+        <div class="form-group bmd-form-group" hidden>
+          <div class="input-group">
+            <input type="text" placeholder="state" class="form-control" ngModel="En Cours" value="En Cours" name="state" required>
+        </div>
+      </div>
+        <div class="form-group bmd-form-group">
+                <div class="form-group">
+                  <label for="return Time">Reason For Authorization </label>
+                  <input type="text" placeholder="Description" class="form-control" ngModel name="description" #description="ngModel" minlength="20" required>
+              </div>
+              <div *ngIf="description.touched && description.invalid" class="alert alert-danger mt-2 pb-2 pt-2 mb-1" role="alert">
+                <p *ngIf="description.errors.required" class="mb-0"> description requiered </p>
+                <p *ngIf="description.errors.minlength" class="mb-0"> description at least 20 words </p>
+              </div>
+        </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('close')">Close</button>
+    <button type="submit" class="btn btn-primary"  [disabled]="form.invalid">Save New Authorization</button>
+  </div>
+    </form>
+    </div>
+</div>
+
+</ng-template>
+
